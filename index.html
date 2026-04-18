@@ -78,8 +78,11 @@
   }
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
+  }
+  @media (max-width: 720px) {
+    .grid { grid-template-columns: 1fr; }
   }
   .card {
     display: flex;
@@ -138,23 +141,37 @@
   }
   .card .meta {
     font-family: -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
-    font-size: 0.78rem;
-    color: var(--muted);
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid var(--hair);
+  }
+  .card .meta .tags {
+    font-size: 0.76rem;
+    color: var(--muted);
+    line-height: 1.45;
   }
   .card .cta {
+    font-size: 0.88rem;
     color: var(--accent, var(--duke-royal));
     font-weight: 600;
     text-decoration: none;
-    transition: transform 0.15s;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    align-self: flex-start;
+    transition: transform 0.18s cubic-bezier(0.2,0.8,0.2,1);
   }
-  .card:hover .cta { transform: translateX(2px); }
-  .card .cta.disabled {
-    color: var(--muted);
+  .card:hover .cta { transform: translateX(3px); }
+  .card .cta::after {
+    content: "→";
     font-weight: 500;
+    transition: transform 0.18s;
   }
+  .card:hover .cta::after { transform: translateX(2px); }
   /* Per-card accents */
   .card[data-c="1"] { --accent: var(--duke-eno); }
   .card[data-c="2"] { --accent: var(--duke-ironweed); }
@@ -207,7 +224,7 @@
 <main>
   <div class="grid">
 
-    <a class="card" data-c="1" href="https://github.com/aipi590-ggn/aipi590-challenge-2-stepgame">
+    <a class="card" data-c="1" href="https://github.com/aipi590-ggn/challenge-2-stepgame">
       <div class="tag">Challenge 1</div>
       <h2>Break the Agent — Reward Hacking</h2>
       <p>
@@ -216,12 +233,12 @@
         than activity.
       </p>
       <div class="meta">
-        <span>PPO · MiniGrid</span>
-        <span class="cta">Repository →</span>
+        <span class="tags">PPO · MiniGrid</span>
+        <span class="cta">Repository</span>
       </div>
     </a>
 
-    <a class="card" data-c="2" href="https://aipi590-ggn.github.io/aipi590-challenge-2-stepgame/">
+    <a class="card" data-c="2" href="https://aipi590-ggn.github.io/challenge-2-stepgame/">
       <div class="tag">Challenge 2</div>
       <h2>Taming the Language Model</h2>
       <p>
@@ -230,12 +247,12 @@
         via DistilGPT2 + TRL.
       </p>
       <div class="meta">
-        <span>RLHF · PPO · Preference modeling</span>
-        <span class="cta">Dashboard →</span>
+        <span class="tags">RLHF · PPO · Preference modeling</span>
+        <span class="cta">Dashboard</span>
       </div>
     </a>
 
-    <a class="card" data-c="3" href="https://aipi590-ggn.github.io/aipi590-challenge-3/">
+    <a class="card" data-c="3" href="https://aipi590-ggn.github.io/challenge-3/">
       <div class="tag">Challenge 3</div>
       <h2>RL in the Physical World</h2>
       <p>
@@ -244,12 +261,12 @@
         a sim-to-real gap analysis against physical-robot constraints.
       </p>
       <div class="meta">
-        <span>SAC · HER · MuJoCo · Sim-to-real</span>
-        <span class="cta">Dashboard →</span>
+        <span class="tags">SAC · HER · MuJoCo · Sim-to-real</span>
+        <span class="cta">Dashboard</span>
       </div>
     </a>
 
-    <a class="card" data-c="4" href="https://aipi590-ggn.github.io/aipi590-challenge-4/">
+    <a class="card" data-c="4" href="https://aipi590-ggn.github.io/challenge-4/">
       <div class="tag">Challenge 4</div>
       <h2>Install-Time Metadata Is Not Enough</h2>
       <p>
@@ -258,8 +275,8 @@
         decisions flip under a 1σ adversarial perturbation. A negative-result study.
       </p>
       <div class="meta">
-        <span>Contextual bandit · LinUCB · Agent security</span>
-        <span class="cta">Dashboard →</span>
+        <span class="tags">Contextual bandit · LinUCB · Agent security</span>
+        <span class="cta">Dashboard</span>
       </div>
     </a>
 
