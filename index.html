@@ -1,21 +1,278 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIPI 590 — GGN</title>
-    <script>
-        // ── Change this to point the org domain at a different project ──
-        const TARGET_REPO = 'aipi590-challenge-4';
-        // ────────────────────────────────────────────────────────────────
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIPI 590 · Team GGN</title>
+<meta name="description" content="Reinforcement Learning challenges — Gross · Guo · Neves — Duke University, AIPI 590, Spring 2026.">
+<meta property="og:title" content="AIPI 590 · Team GGN">
+<meta property="og:description" content="Four challenges across RLHF, robotics, and agent supply-chain security.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23012169'/%3E%3Ctext x='32' y='44' font-family='system-ui' font-size='28' font-weight='700' fill='white' text-anchor='middle'%3EGGN%3C/text%3E%3C/svg%3E">
+<style>
+  :root {
+    --duke-navy:      #012169;
+    --duke-royal:     #00539B;
+    --duke-copper:    #C84E00;
+    --duke-persimmon: #E89923;
+    --duke-piedmont:  #A1B70D;
+    --duke-eno:       #339898;
+    --duke-ironweed:  #993399;
+    --duke-whisper:   #F3F2F1;
+    --duke-hatteras:  #E2E6ED;
+    --duke-graphite:  #666666;
+    --ink:     #1a1a1a;
+    --ink-dim: #3d3d3d;
+    --muted:   var(--duke-graphite);
+    --paper:   var(--duke-whisper);
+    --surface: #ffffff;
+    --hair:    var(--duke-hatteras);
+    --shadow-sm: 0 1px 2px rgba(1,33,105,0.04), 0 1px 3px rgba(0,0,0,0.03);
+    --shadow-md: 0 2px 8px rgba(1,33,105,0.06), 0 4px 16px rgba(0,0,0,0.04);
+  }
+  * { box-sizing: border-box; }
+  html { font-size: 17px; color-scheme: light; scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: "Charter", "Iowan Old Style", "Georgia", "Times New Roman", serif;
+    color: var(--ink);
+    background: var(--paper);
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  header {
+    padding: 72px 24px 40px;
+    border-bottom: 1px solid var(--hair);
+  }
+  header .wrap { max-width: 960px; margin: 0 auto; }
+  .eyebrow {
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--duke-royal);
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: inline-block;
+    padding-bottom: 3px;
+    border-bottom: 2px solid var(--duke-royal);
+  }
+  h1 {
+    font-size: 2.75rem;
+    line-height: 1.1;
+    font-weight: 700;
+    margin: 0 0 20px;
+    letter-spacing: -0.012em;
+  }
+  header p.lede {
+    font-size: 1.15rem;
+    color: var(--ink-dim);
+    max-width: 640px;
+    margin: 0;
+  }
+  main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 56px 24px 64px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--hair);
+    border-top: 3px solid var(--accent, var(--duke-royal));
+    border-radius: 6px;
+    padding: 24px 26px 22px;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.18s cubic-bezier(0.2,0.8,0.2,1), box-shadow 0.18s ease;
+    box-shadow: var(--shadow-sm);
+    animation: fadeUp 0.4s cubic-bezier(0.2,0.8,0.2,1) both;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+  .card:nth-child(1) { animation-delay: 0.04s; }
+  .card:nth-child(2) { animation-delay: 0.10s; }
+  .card:nth-child(3) { animation-delay: 0.16s; }
+  .card:nth-child(4) { animation-delay: 0.22s; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card { animation: none; transition: none; }
+    .card:hover { transform: none; }
+  }
+  .card .tag {
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    color: var(--accent, var(--duke-royal));
+    margin-bottom: 8px;
+  }
+  .card h2 {
+    font-family: "Charter", "Iowan Old Style", "Georgia", serif;
+    font-size: 1.25rem;
+    line-height: 1.25;
+    margin: 0 0 10px;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+    font-weight: 700;
+  }
+  .card p {
+    margin: 0 0 16px;
+    font-size: 0.95rem;
+    color: var(--ink-dim);
+    line-height: 1.5;
+    flex: 1;
+  }
+  .card .meta {
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
+    font-size: 0.78rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .card .cta {
+    color: var(--accent, var(--duke-royal));
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.15s;
+  }
+  .card:hover .cta { transform: translateX(2px); }
+  .card .cta.disabled {
+    color: var(--muted);
+    font-weight: 500;
+  }
+  /* Per-card accents */
+  .card[data-c="1"] { --accent: var(--duke-eno); }
+  .card[data-c="2"] { --accent: var(--duke-ironweed); }
+  .card[data-c="3"] { --accent: var(--duke-piedmont); }
+  .card[data-c="4"] { --accent: var(--duke-copper); }
 
-        const base = 'https://aipi590-ggn.github.io';
-        window.location.replace(`${base}/${TARGET_REPO}/`);
-    </script>
-    <meta http-equiv="refresh" content="0;url=https://aipi590-ggn.github.io/aipi590-challenge-4/">
-    <link rel="canonical" href="https://aipi590-ggn.github.io/aipi590-challenge-4/">
+  .callout {
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
+    margin-top: 40px;
+    padding: 18px 22px;
+    background: var(--surface);
+    border: 1px solid var(--hair);
+    border-left: 3px solid var(--duke-persimmon);
+    border-radius: 4px;
+    font-size: 0.92rem;
+    color: var(--ink-dim);
+    box-shadow: var(--shadow-sm);
+  }
+  .callout strong { color: var(--ink); font-weight: 600; }
+  footer {
+    padding: 32px 24px 48px;
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
+    color: var(--muted);
+    font-size: 0.88rem;
+    text-align: center;
+    border-top: 1px solid var(--hair);
+    background: var(--surface);
+  }
+  footer a { color: var(--duke-royal); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+  @media (max-width: 600px) {
+    header { padding: 48px 20px 32px; }
+    h1 { font-size: 2rem; }
+    main { padding: 36px 20px 48px; }
+  }
+</style>
 </head>
 <body>
-    <p>Redirecting to <a href="https://aipi590-ggn.github.io/aipi590-challenge-4/">aipi590-challenge-4</a>...</p>
+<header>
+  <div class="wrap">
+    <div class="eyebrow">Duke University · AIPI 590 · Spring 2026</div>
+    <h1>Reinforcement Learning — Team GGN</h1>
+    <p class="lede">
+      Four challenges across reward shaping, RLHF, simulated robotics, and agent supply-chain
+      security. Code, results, and live dashboards are linked below.
+    </p>
+  </div>
+</header>
+
+<main>
+  <div class="grid">
+
+    <a class="card" data-c="1" href="https://github.com/aipi590-ggn/aipi590-challenge-2-stepgame">
+      <div class="tag">Challenge 1</div>
+      <h2>Break the Agent — Reward Hacking</h2>
+      <p>
+        Reward-shaping experiments in MiniGrid MultiRoom with PPO. Demonstrates agent policy
+        collapse when the reward signal is farmable, and a fix that rewards progress rather
+        than activity.
+      </p>
+      <div class="meta">
+        <span>PPO · MiniGrid</span>
+        <span class="cta">Repository →</span>
+      </div>
+    </a>
+
+    <a class="card" data-c="2" href="https://aipi590-ggn.github.io/aipi590-challenge-2-stepgame/">
+      <div class="tag">Challenge 2</div>
+      <h2>Taming the Language Model</h2>
+      <p>
+        RLHF loop on LFM2-350M for spatial reasoning (StepGame). Human preference pairs →
+        reward model → PPO policy alignment, with an alternate run on Hinge-bio generation
+        via DistilGPT2 + TRL.
+      </p>
+      <div class="meta">
+        <span>RLHF · PPO · Preference modeling</span>
+        <span class="cta">Dashboard →</span>
+      </div>
+    </a>
+
+    <a class="card" data-c="3" href="https://aipi590-ggn.github.io/aipi590-challenge-3/">
+      <div class="tag">Challenge 3</div>
+      <h2>RL in the Physical World</h2>
+      <p>
+        SAC + Hindsight Experience Replay policies for robotic grasping and reaching in
+        MuJoCo (FetchPickAndPlace, FetchReach). Interactive 3D policy-rollout viewer plus
+        a sim-to-real gap analysis against physical-robot constraints.
+      </p>
+      <div class="meta">
+        <span>SAC · HER · MuJoCo · Sim-to-real</span>
+        <span class="cta">Dashboard →</span>
+      </div>
+    </a>
+
+    <a class="card" data-c="4" href="https://aipi590-ggn.github.io/aipi590-challenge-4/">
+      <div class="tag">Challenge 4</div>
+      <h2>Install-Time Metadata Is Not Enough</h2>
+      <p>
+        Contextual-bandit retrospective on trust decisions for MCP servers. LinUCB installs
+        litellm — a real-world supply-chain compromise — in 100% of seeds; 86% of decline
+        decisions flip under a 1σ adversarial perturbation. A negative-result study.
+      </p>
+      <div class="meta">
+        <span>Contextual bandit · LinUCB · Agent security</span>
+        <span class="cta">Dashboard →</span>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="callout">
+    <strong>Team:</strong> Lindsay Gross · Yifei Guo · Jonas Neves. Each project's README and
+    live dashboard carry the full scope, methodology, and reproduction instructions.
+  </div>
+</main>
+
+<footer>
+  <a href="https://github.com/aipi590-ggn">github.com/aipi590-ggn</a> · Duke University · Spring 2026
+</footer>
 </body>
 </html>
