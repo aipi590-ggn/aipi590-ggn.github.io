@@ -102,6 +102,7 @@
     transform: translateY(-3px);
     box-shadow: var(--shadow-md);
   }
+  div.card:hover { transform: none; box-shadow: var(--shadow-sm); }
   .card:nth-child(1) { animation-delay: 0.04s; }
   .card:nth-child(2) { animation-delay: 0.10s; }
   .card:nth-child(3) { animation-delay: 0.16s; }
@@ -224,7 +225,7 @@
 <main>
   <div class="grid">
 
-    <a class="card" data-c="1" href="https://github.com/aipi590-ggn/challenge-2-stepgame">
+    <div class="card" data-c="1">
       <div class="tag">Challenge 1</div>
       <h2>Break the Agent — Reward Hacking</h2>
       <p>
@@ -234,9 +235,8 @@
       </p>
       <div class="meta">
         <span class="tags">PPO · MiniGrid</span>
-        <span class="cta">Repository</span>
       </div>
-    </a>
+    </div>
 
     <a class="card" data-c="2" href="https://aipi590-ggn.github.io/challenge-2-stepgame/">
       <div class="tag">Challenge 2</div>
