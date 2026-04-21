@@ -225,29 +225,16 @@
 <main>
   <div class="grid">
 
-    <div class="card" data-c="1">
-      <div class="tag">Challenge 1</div>
-      <h2>Break the Agent — Reward Hacking</h2>
+    <a class="card" data-c="4" href="https://aipi590-ggn.github.io/aipi590-challenge-4/">
+      <div class="tag">Challenge 4</div>
+      <h2>Adaptive PID via Contextual Bandit</h2>
       <p>
-        Reward-shaping experiments in MiniGrid MultiRoom with PPO. Demonstrates agent policy
-        collapse when the reward signal is farmable, and a fix that rewards progress rather
-        than activity.
+        Contextual bandit (LinUCB) re-tunes PID gains for a line-following robot when its
+        chassis changes. Violation rate drops from 76% to 21% vs fixed PID across 5 seeds ×
+        30 chassis, with a side study on why a naive MAE reward invites the robot to idle.
       </p>
       <div class="meta">
-        <span class="tags">PPO · MiniGrid</span>
-      </div>
-    </div>
-
-    <a class="card" data-c="2" href="https://aipi590-ggn.github.io/challenge-2-stepgame/">
-      <div class="tag">Challenge 2</div>
-      <h2>Taming the Language Model</h2>
-      <p>
-        RLHF loop on LFM2-350M for spatial reasoning (StepGame). Human preference pairs →
-        reward model → PPO policy alignment, with an alternate run on Hinge-bio generation
-        via DistilGPT2 + TRL.
-      </p>
-      <div class="meta">
-        <span class="tags">RLHF · PPO · Preference modeling</span>
+        <span class="tags">Contextual bandit · LinUCB · PID control</span>
         <span class="cta">Dashboard</span>
       </div>
     </a>
@@ -266,19 +253,32 @@
       </div>
     </a>
 
-    <a class="card" data-c="4" href="https://aipi590-ggn.github.io/aipi590-challenge-4/">
-      <div class="tag">Challenge 4</div>
-      <h2>Adaptive PID via Contextual Bandit</h2>
+    <a class="card" data-c="2" href="https://aipi590-ggn.github.io/challenge-2-stepgame/">
+      <div class="tag">Challenge 2</div>
+      <h2>Taming the Language Model</h2>
       <p>
-        Contextual bandit (LinUCB) re-tunes PID gains for a line-following robot when its
-        chassis changes. Violation rate drops from 76% to 21% vs fixed PID across 5 seeds ×
-        30 chassis, with a side study on why a naive MAE reward invites the robot to idle.
+        RLHF loop on LFM2-350M for spatial reasoning (StepGame). Human preference pairs →
+        reward model → PPO policy alignment, with an alternate run on Hinge-bio generation
+        via DistilGPT2 + TRL.
       </p>
       <div class="meta">
-        <span class="tags">Contextual bandit · LinUCB · PID control</span>
+        <span class="tags">RLHF · PPO · Preference modeling</span>
         <span class="cta">Dashboard</span>
       </div>
     </a>
+
+    <div class="card" data-c="1">
+      <div class="tag">Challenge 1</div>
+      <h2>Break the Agent — Reward Hacking</h2>
+      <p>
+        Reward-shaping experiments in MiniGrid MultiRoom with PPO. Demonstrates agent policy
+        collapse when the reward signal is farmable, and a fix that rewards progress rather
+        than activity.
+      </p>
+      <div class="meta">
+        <span class="tags">PPO · MiniGrid</span>
+      </div>
+    </div>
 
   </div>
 
